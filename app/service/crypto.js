@@ -5,7 +5,7 @@ const Service = require('egg').Service;
 class CryptoService extends Service {
 
     async getRSAKeyPair(){
-        let res = await this.ctx.service.mysql.findOne('___key_rsa_ss_s__',{id:1});
+        let res = await this.ctx.service.mysql.findOne('___rsa_key___',{id:1});
         return {
             pubKey:res.pubKey,
             priKey:res.priKey

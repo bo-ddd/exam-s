@@ -42,7 +42,7 @@ class UserController extends BaseController {
             return await ctx.service.user.login(username, decrypted);
         }catch(e){
             console.log(e);
-            return ctx.fail({msg:'登录失败!请稍候在试!'});
+            return ctx.fail({msg:'用户名或密码不正确!'});
         }
     }
     async getToken() {
