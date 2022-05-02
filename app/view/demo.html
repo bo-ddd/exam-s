@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    class CamelCase {
+        constructor(porper) {
+            this.porper = porper;
+            this.exec()
+        }
+        exec() {
+            if (this.type(this.porper) == "Array") {
+                this.isArray(this.porper);
+            } else if (this.type(this.porper) == "Object") {
+                this.isObject(this.porper)
+            } else if (this.type(this.porper) == "String") {
+                this.isString(this.porper)
+            } else {
+                throw new Error("这是一个异常");
+            }
+        }
+        value() {
+            return this.porper
+        }
+        index(str) {
+            return str.indexOf("_")
+        }
+        isArray(array) {
+            for (let i = 0; i < array.length; i++) {
+                if (this.type(array[i]) == "Array") {
+                    this.isArray(array[i]);
+                } else if (this.type(array[i]) == "Object") {
+                    for (const key in array[i]) {
+                        let index = key.indexOf("_")
+                        if (index != -1) {
+                            // console.log(key.substr(index, 2));
+                            var str = key.substr(index, 2);
+                            var letter = str.substr(1, 1)
+                            var arr = key.split(str);
+                            array[i][arr[0] + letter.toUpperCase() + arr[1]] = array[i][key]
+                            delete array[i][key];
+                        }
+
+                    }
+                } else if (this.type(array[i]) == "String") {
+                    this.isString(array[i])
+                }
+
+            }
+            for (let i = 0; i < array.length; i++) {
+                for (const key in array[i]) {
+                    if (this.index(key) != -1) {
+                        this.isArray(this.porper)
+                    }
+                }
+            }
+            // console.log(this.porper);
+
+        }
+        isString(string) {
+            console.log("A");
+            let index = string.indexOf("_")
+            if (index != -1) {
+                // console.log(key.substr(index, 2));
+                var str = string.substr(index, 2);
+                var letter = str.substr(1, 1)
+                var arr = string.split(str);
+                console.log(str, arr);
+                this.porper = arr[0] + letter.toUpperCase() + arr[1]
+            }
+            if (this.index(this.porper) != -1) {
+                this.isString(this.porper)
+            }
+            // console.log(this.porper)
+        }
+        isObject(obj) {
+
+            for (const key in obj) {
+                let index = key.indexOf("_")
+                if (index != -1) {
+                    // console.log(key.substr(index, 2));
+                    var str = key.substr(index, 2);
+                    var letter = str.substr(1, 1)
+                    var arr = key.split(str);
+                    obj[arr[0] + letter.toUpperCase() + arr[1]] = obj[key]
+                    delete obj[key];
+                }
+
+            }
+            for (const key in this.porper) {
+                if (this.index(key) != -1) {
+                    this.isObject(this.porper)
+                }
+                // console.log(this.porper)
+            }
+        }
+        type(data) {
+            if (Array.isArray(data)) {
+                return "Array"
+            } else {
+                return Array.prototype.toString.call(data).slice(8, -1)
+            }
+        }
+    }
+    var result = new CamelCase(res);
+    console.log(result.value());
+</script>
+</html>
