@@ -18,13 +18,10 @@ class UserService extends Service {
       username,
       password,
     });
-    if (!user) return ctx.fail({ msg: '用户名或密码不存在!' })
-    ctx.service.mysql.update('user_info', {
-      loginAt: this.app.mysql.literals.now,
-      id: user.userId
-    });
+    console.log(user);
+    if (!user) return ctx.fail({ msg: '用户名或密码不存在!!!!' })
     const userInfo = await ctx.service.mysql.findOne('user_info', {
-      id: user.userId
+      id: user.id
     });
     return ctx.success({ data: this.getToken(userInfo) })
   }
