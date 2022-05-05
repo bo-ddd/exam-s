@@ -21,7 +21,7 @@ class UserService extends Service {
     console.log(user);
     if (!user) return ctx.fail({ msg: '用户名或密码不存在!' })
     const userInfo = await ctx.service.mysql.findOne('user_info', {
-      id: user.id
+      id: user.userId
     });
     return ctx.success({ data: this.getToken(userInfo) })
   }
