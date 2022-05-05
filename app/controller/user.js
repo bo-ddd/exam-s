@@ -31,7 +31,7 @@ class UserController extends BaseController {
     }
     async login() {
         const { ctx } = this;
-        const { username, password, captcha } = ctx.request.body;
+        const { username, password } = ctx.request.body;
         ctx.validate({
             username: { type: 'string', min: 6, max: 15 },
             captcha: { type: 'captcha', captcha: ctx.session.captcha }
@@ -97,9 +97,10 @@ class UserController extends BaseController {
         const { ctx } = this;
         ctx.validate({
             username: { type: 'string', min: 6, max: 15 },
-            password: { type: 'password', min: 6, max: 15 },
-            phone: { type: 'phone?' },
-            email: { type: 'email' }
+            password: { type: 'password' },
+            phone: { type: 'phone' },
+            email: { type: 'email' },
+            captcha: { type: 'captcha', captcha: ctx.session.captcha }
         });
         return await ctx.service.user.register();
     }
