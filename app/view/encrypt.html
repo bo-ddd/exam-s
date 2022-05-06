@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+    <img src="http://unier.oss-cn-beijing.aliyuncs.com/exampleobject.png" alt="">
+</body>
+<script src="../public/lib/jsencrypt.js"></script>
+<script>
+
+    var encryptor = new JSEncrypt()  // 创建加密对象实例
+
+    let publicKey = `-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnZIdkAWLgkux1eMT1mSwyOb7V
+uTtfDYMepItVxy6IhZNT1mSLZ0Ab4b2FvJ7JQmkDEG38l9JcFYY9f61tNPaEZWfl
+FwoIC+vbjhQq8mvv6dYN1uWTpEeQ4L1JEj8Zm/kKLM2prOi5qnN5A1rVgQ5HmB5l
+/9AAyN2x4vdqegRNFQIDAQAB
+-----END PUBLIC KEY-----`
+
+    encryptor.setPublicKey(publicKey)//设置公钥
+    var rsaPassWord = encryptor.encrypt('adfasdf123')  // 对内容进行加密
+    console.log(rsaPassWord)
+
+    let _priKey = `-----BEGIN RSA PRIVATE KEY-----
+MIICXgIBAAKBgQCnZIdkAWLgkux1eMT1mSwyOb7VuTtfDYMepItVxy6IhZNT1mSL
+Z0Ab4b2FvJ7JQmkDEG38l9JcFYY9f61tNPaEZWflFwoIC+vbjhQq8mvv6dYN1uWT
+pEeQ4L1JEj8Zm/kKLM2prOi5qnN5A1rVgQ5HmB5l/9AAyN2x4vdqegRNFQIDAQAB
+AoGARS1ado3MGxsc9X8vhoACr88FerXOP34KDgPaQVzLckghlqgnbSUCbYNhG3/T
+70CuvUFw8s6bdMrAa3H0bglRRsKvmNuN0LIIBsfWFZmKguaH2CwHiW9FWYWNmftb
+VsbJkoSFNUFtikCWwWONDMU7GuPhPzzlL5XoAM+Pc/oBhJECQQDTF1GpKIlvSTUz
+sH9QurvvMRFV1qUFWD1MsAm3yp/ykkXHp4dV/CsmkVDhfj2064UQRGxps/ljkUik
+Vb7iqIizAkEAywFCJj8ktIX7w2mhbUnxxFNohg1BNJdz1tRZsljHhtdiwRnxbbIv
+B3JgceD5xmPdWKpYRqHnThaL4ZUyqqBnFwJBAM285Z9sXf80KAFYHc6OIcuwVEgI
+a1A5P4216dLTT2959z7v3m0E2P2/Fkig5P2nq0o+ljez7PaJTHa3B9QcFRcCQQC5
+d23bCYdcUqigcMol0g/LATUWe9ed19ziYeGM+mVYQUGdEDmtscQbtph8kkFAyo44
+anD6HwL3Kcwkja3bi26DAkEAp0+kJB/rs1Z5KqNxNXBXxZlqu5gdyz8faEOv97e9
+6GcESwox4lZxs5HNkktX91aaHQezhPllj2gL5Vnna+RwmA==
+-----END RSA PRIVATE KEY-----
+`
+    axios.post('/user/login', {
+        username:'xiaoming',
+        password: rsaPassWord
+    }).then(res => {
+        console.log(res)
+    })
+</script>
