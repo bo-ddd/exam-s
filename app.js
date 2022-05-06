@@ -20,7 +20,7 @@ module.exports = app =>{
         }
     })
     app.validator.addRule('phone',(rule,value)=>{
-        let reg = /^(1\d{10}$/;
+        let reg = /^1\d{10}$/;
         try{
             if(!reg.test(value)) return 'match fail';
         }catch(e){
