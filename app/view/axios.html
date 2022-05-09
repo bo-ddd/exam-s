@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // axios;
+
+    // promise:  是一个固定的语法;
+    // 不好学是因为他的是固定的写法;
+    // 建议如何把promise写熟练;
+    // api.js
+
+    // 为什么要把promise对象在进行二次封装;
+
+    // 总结 : 
+    // promise   学习方法
+    // 硬去记,记完以后去写,写的时候不要去看之前写的,
+    // 写完以后直接看效果;
+    // 效果出不来,就找问题;
+    // 解决完问题,
+    // 删除你写的重新写
+    // 一直写到 手记住了,
+    // 写promise不报错;
+
+    class Axios {
+        constructor() {
+            // 声明属性,应该声明到constructor();
+        }
+        post(url, params) {
+            return new Promise(function (resolve, reject) {
+                ajax({
+                    url,
+                    params,
+                    success(res) {
+                        resolve(res) //
+                    }
+                })
+            })
+        }
+    }
+
+    var axios = new Axios();
+
+    function axiosLogin(params = {}) {
+        return axios.post('/user/login', params)
+    }
+    function axiosRegister(params = {}) {
+        return axios.post('/user/login', params)
+    }
+    function axiosUserInfo(params = {}) {
+        return axios.post('/user/login', params)
+    }
+
+    // 
+
+    axiosLogin({
+        username:'xiaoming',
+        password:'99999999'
+    }).then(res=>{
+        console.log('------axios login-----------')
+        console.log(res)//  res;
+    })
+    
+    login({
+        username:'xiaoming',
+        password:'99999999'
+    }).then(res=>{
+        console.log('------login-----------')
+        console.log(res)//  res;
+    })
+
+
+    function login(params = {}) {
+        return new Promise(function (resolve, reject) {
+            ajax({
+                url: '/user/login',
+                params,
+                success(res) {
+                    resolve(res) //
+                }
+            })
+        })
+    }
+
+    function getUserInfo(params = {}) {
+        return new Promise(function (resolve, reject) {
+            ajax({
+                url: '/user/info',
+                params,
+                success(res) {
+                    resolve(res) //
+                }
+            })
+        })
+    }
+
+    function register(params = {}) {
+        return new Promise(function (resolve, reject) {
+            ajax({
+                url: '/user/register',
+                params,
+                success(res) {
+                    resolve(res) //
+                }
+            })
+        })
+    }
+
+    function ajax({ type = 'POST', url, params = {}, success }) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(type, url, true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                success(xhr.responseText);
+            }
+        }
+        xhr.send(JSON.stringify(params));
+    }
+</script>

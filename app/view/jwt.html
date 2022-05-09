@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 登录 -->
+    <!-- 浏览器中，没有登录的概念，每个页面和每个页面之间，是无状态的 -->
+    <!-- a.html   =>  b.html -->
+
+    <!-- 几乎都是前后端分离的项目 -->
+    <!-- jwt登录方案   -->
+    <!-- jwt:  json web token -->
+
+
+    <!-- 用户请求服务端，服务去数据库中查询你的用户名和密码 -->
+    <!-- 如果匹配成功，会给你返回一个token -->
+    <!-- 前端看不懂这个token，但是这个token其实就代码着是你登录的标识 -->
+    <!-- 每次请求接口的时候，我就把这个token给传给服务端 -->
+    <!-- 如果验签成功，就返回接口对应的信息 -->
+    <!-- 如果验签不成功，就返回401 -->
+    <!-- 401：全国统一， 意思是未授权   -->
+
+    <!-- token:签名 asdfjaksldfjklasdjfklasdf -->
+
+    <!-- jwt: -->
+    <!-- jwt叫 签名 不叫 加密？ -->
+    <!-- jwt 本身就不安全， -->
+
+    var token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+    eyJpZCI6MSwiZW1haWwiOiI4MTQxNTE3ODlAcXEuY29tIiwicGhvbmUiOiIxNTgzNjE1MzYxNiIsImNyZWF0ZWRBdCI6IjIwMjItMDUtMDRUMDk6NDU6MjIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDUtMDRUMDk6NDU6MzEuMDAwWiIsImlhdCI6MTY1MjA2MjY0NiwiZXhwIjoxNjUyMDY0NDQ2fQ
+    .6cwoXI7MbCHyoVZD0HlIfie2sDXtkK0z4fpqb_DjeS8'
+
+
+    <!-- 登录的流程 -->
+    <!-- 1. 前端输入用户名和密码 -->
+    <!-- 2. 校验这些信息后传给服务端 -->
+    <!-- 3. 服务端返回一个token -->
+    <!-- 4. 前端需要把这个token存到sessionStorage中 -->
+    <!-- 5. 是为了在调用其它接口的时候 把这个token通过请求头的方式，传给服务端 -->
+
+
+    <!-- 为什么用 sessionStorage ，而不是 localStorage -->
+    <!-- 答： 原因是sessionStorage 在关闭浏览器的时候，这个token就会消失 -->
+
+
+    <!-- 前端做校验的目的是什么？ -->
+    <!-- 前端的代码通过f12就可以直接查看，甚至可以直接修改脚本中的代码，让你跳过校验 -->
+    <!-- 校验的目的是： 为服务端分担压力 -->
+
+    <!-- 服务端是有带宽的概念的 -->
+
+
+    <!-- 前端加验证码的目的 -->
+    <!-- 防止刷接口 -->
+    <!-- 如果你加了个验证码   == 1分钟之内来使用 -->
+    <!-- 验证码是为了安全 -->
+    let username = 'xiaoming' //  $100000;
+    for(let i = 0; i < 99999999;i++){
+        axios.post('/user/login',{
+            username:'xiaoming',
+            password:i,
+        })
+    }
+</body>
+</html>

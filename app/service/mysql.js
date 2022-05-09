@@ -26,15 +26,15 @@ class MysqlService extends Service {
   }
   async list(tablename, payload) {
     const { app } = this;
-    const { orders = [], pagination = false } = payload;
+    const { orders = [], pagination } = payload;
     const where = payload.where ? this.service.format.params(payload.where) : {};
     return await this.pagination(({ offset, limit }) => {
       const p1 = this.count(tablename);
       const options = {
         where,
       };
-      //pagination == true ? '查询所有数据' : '按照分页查询数据'
-      if (pagination) {
+      //pagination == false ? '查询所有数据' : '按照分页查询数据'
+      if (pagination === undefined || pagination === true) {
         options.limit = limit;
         options.offset = offset;
       }

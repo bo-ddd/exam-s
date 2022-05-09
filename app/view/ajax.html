@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // ajax ;  
+    // promise 
+    // await async ;
+
+
+    // 通过封装ajax方法来让 调用接口时更加方便快捷；
+    // success 回调函数的应用； 让方法的解耦性更强；
+    ajax({
+        url: '/user/login',
+        params: {
+            username: 'xiaoming',
+            password: "999999"
+        },
+        success(res){
+            console.log('-------------user login interface result---------------')
+            console.log(res);
+        }
+    })
+
+    ajax({
+        url: 'user/info',
+        success(res) {
+            console.log('is ajax user info interface result:')
+            console.log(res)
+        }
+    })
+
+    function ajax({ type = 'POST', url, params = {}, success }) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(type, url, true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                success(xhr.responseText);
+            }
+        }
+        xhr.send(JSON.stringify(params));
+    }
+
+</script>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // promise 
+    // promise 死敲这个api,一直敲到 手会了为止；
+    // 2.  你可以试着去猜一下 promise底层实现；
+
+
+    class MyPromise {
+        constructor(callback) {
+            // 属性放到constructor中； 
+            // 方法放到和constructor同一级  ==  prototype 中；
+            this.callback = callback;
+            this.resolvedCallback = null; //成功的回调；
+            setTimeout(()=>{
+                this.callback(this.resolve.bind(this), this.reject.bind(this))
+            })
+        }
+
+        resolve(params) {
+            this.resolvedCallback(params);
+        }
+
+        reject() {
+
+        }
+
+        then(callback){
+            this.resolvedCallback = callback;
+        }
+    }
+
+
+
+    let promise1 = new MyPromise(function (resolve, reject) {
+        if (true) {
+            resolve('hello world abc  def')
+        }
+    }).then(function(res){
+        console.log(res)  //  hello world
+    })
+</script>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    //  事件环  eventLoop;
+
+    // 事件环其实就是代码的执行顺序；
+    // js执行顺序  先同后异，先微后宏；
+
+    // 先同后异：  代码先同步执行，等同步代码执行完以后，才会执行异步；
+
+    console.log('1')
+
+    // var eventLoop = []
+
+    // 异步 ： ajax  setTimeout setInterval  Promise.then()
+    let time1 = setTimeout(function(){
+        console.log(2);
+    })
+
+    let time2 = setTimeout(function(){
+        console.log(3);
+    })
+
+    for(let i = 0; i < 1000000; i++){
+        console.log(i);
+    }
+
+
+</script>

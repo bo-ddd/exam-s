@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // ajax ;  
+    // promise 
+    // await async ;
+
+    // 服务端接口的入参；
+    var params = {
+        username:'xiaoming',
+        password:"999999"
+    }
+
+    // 浏览器对象；
+    var xhr = new XMLHttpRequest();
+
+    // open:打开  打开浏览器；
+    // type:  接口请求的方式  get  post;
+    // url:  准备访问的浏览器的url地址  ==  服务端的接口名；
+    // isAsync :  true;
+    // xhr.open(type,url,isAsync);
+    xhr.open("POST",'user/login',true);
+
+    // 当拿服务端返回的数据时；
+    xhr.onload = function(){
+        // xhr.status  状态码  200 是成功；
+        if(xhr.status == 200){
+            // response 响应  text文本 
+            // 服务端给你响应的一个文本值   文本：string;
+            console.log(xhr.responseText)
+        }
+    }
+
+    // send： 发送   相当于你在浏览器按了一下回车键；
+    // 这个send方法接收的一个params，是你需要传给服务端的一个入参；
+    // 这个参数只是在post方法中时才传；
+    xhr.send(JSON.stringify(params));
+
+    // 总结：
+    // 原生js来利用xhr来访问服务端；
+</script>

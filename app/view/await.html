@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // promise相关的东西；
+    // async await ;
+
+    // promise =>  async await   generator 解决异步回调的一个测试方案；
+
+    // async await 其实是 promise.then的一个语法糖；
+
+    // 
+    // promise对象转await async的一个步骤流程；
+    // 1. 把promise对象中的res赋值给这个promise对象;
+    // 2. 复制.then方法中所有的逻辑;
+    // 3. 删除.then方法及方法中的所有代码;
+    // 4. 在 promise对象的下一行,粘上.then方法的所有代码;
+    // 5. 在当前promise对象前加上关键字 await ;
+    // 6. 在当前await方法的父级的方法名之前加一个关键字 async;
+    (async function () {
+        // await 后面所有的值,都是包含在promise.then方法中的;
+        let res = await login();
+        console.log(1)
+        console.log(2)
+        console.log(3)
+        console.log(4)
+        console.log(5)
+        console.log(6)
+        let res1 = await login();
+    })()
+
+    (async function () {
+        let res = await axios.post('/user/register', {
+            username: 'xiaoming',
+            password: '000000'
+        })
+
+        if (res.data.status !== 1) return;
+
+        
+        let loginResult = await axios.post('/user/login', {
+            username: 'xiaoming',
+            password: '0000000'
+        })
+
+        console.log(res.data.data) // token;
+    })()
+
+    // var vm = new Vue({
+    //     methods: {
+    //         async submit() {
+    //             login().then(res => {
+    //                 console.log(1)
+    //                 console.log(2)
+    //                 console.log(3)
+    //                 console.log(4)
+    //                 console.log(5)
+    //                 console.log(6)
+    //                 let res1 = await login();
+    //             })
+    //         }
+    //     }
+    // })
+
+    function login() {
+        return new Promise(function (resolve, reject) {
+            // resolve  成功的回调；
+            // reject   失败的回调；
+            ajax({
+                url: '/user/login',
+                params: {
+                    username: 'xiaoming',
+                    password: "999999"
+                },
+                success(res) {
+                    // res   xhr.responseText;
+                    resolve(res) //
+                }
+            })
+        })
+    }
+
+    function ajax({ type = 'POST', url, params = {}, success }) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(type, url, true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                success(xhr.responseText);
+            }
+        }
+        xhr.send(JSON.stringify(params));
+    }
+
+
+</script>

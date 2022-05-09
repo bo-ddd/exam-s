@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
+</head>
+
+<body>
+
+</body>
+<script>
+    // ajax ;  
+    // promise 
+    // await async ;
+
+
+    // 成也回调，败也回调；
+    // js开发  遇到的一个典型的问题  地狱回调；
+    //  promise;
+    // Promise 承诺   Promise的状态是不可逆；
+
+    // 一个方法 return 一个什么值 ，那这个方法等于那个值；
+    function login() {
+        return new Promise(function (resolve, reject) {
+            // resolve  成功的回调；
+            // reject   失败的回调；
+            ajax({
+                url: '/user/login',
+                params: {
+                    username: 'xiaoming',
+                    password: "999999"
+                },
+                success(res) {
+                    // res   xhr.responseText;
+                    resolve(res) //
+                }
+            })
+        })
+    }
+    // 这种写法并不能解决地狱回调；
+    // .then方法如果返回一个promise对象； 那么这个.then后就可以在接.then();
+    // 地狱回调被我们解决了；
+    // 一个方法如果返回一个promise对象，那么这个方法就有.then方法；
+
+    // login()对象是一个promise对象，那么说明 login()方法之后可以接 .then() 
+    // login().then()   .then()方法又返回一个promise对象；  说明.then方法其实就是一个promise
+    // .then()方法是一个promise对象；那么.then方法后就又可以接.then()方法；
+    // login()
+    // .then()
+    // .then()
+    // .then()
+    // .then()
+
+    login().then(res => {
+        console.log('---------------第1次--------------')
+        console.log(res)  // 登录时服务端给你返回的参数；
+        return login()
+    })
+    .then(res=>{
+        console.log('---------------第2次--------------')
+        console.log(res)  // 登录时服务端给你返回的参数；
+        return login()
+    })
+    .then(res=>{
+        console.log('---------------第3次--------------')
+        console.log(res)  // 登录时服务端给你返回的参数；
+        return login()
+    })
+    .then(res=>{
+        console.log('---------------第4次--------------')
+        console.log(res)  // 登录时服务端给你返回的参数；
+        return login()
+    })
+    .then(res=>{
+        console.log('---------------第5次--------------')
+        console.log(res)  // 登录时服务端给你返回的参数；
+        return login()
+    })
+
+    // 地狱回调：
+    // ajax({
+    //     url: '/user/login',
+    //     params: {
+    //         username: 'xiaoming',
+    //         password: "999999"
+    //     },
+    //     success(res) {
+    //         console.log('---------------------ajax---------------')
+    //         ajax({
+    //             url: '/user/login',
+    //             params: {
+    //                 username: 'xiaoming',
+    //                 password: "999999"
+    //             },
+    //             success(res) {
+    //                 ajax({
+    //                     url: '/user/login',
+    //                     params: {
+    //                         username: 'xiaoming',
+    //                         password: "999999"
+    //                     },
+    //                     success(res) {
+    //                         ajax({
+    //                             url: '/user/login',
+    //                             params: {
+    //                                 username: 'xiaoming',
+    //                                 password: "999999"
+    //                             },
+    //                             success(res) {
+    //                                 console.log('-------------user login interface result---------------')
+    //                                 console.log(res);
+    //                             }
+    //                         })
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //     }
+    // })
+
+    function ajax({ type = 'POST', url, params = {}, success }) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(type, url, true);
+        xhr.onload = function () {
+            if (xhr.status == 200) {
+                success(xhr.responseText);
+            }
+        }
+        xhr.send(JSON.stringify(params));
+    }
+
+    function  getUserInfo(payload = {}){
+        return axios.post('/user/info',payload,getPostConfig())
+    }
+
+
+
+    // 
+</script>
