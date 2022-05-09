@@ -11,8 +11,9 @@
     
 </body>
 <script>
-    axios.post('/question/list',{
-        type:1
+    axios.post('/question/delete',{
+        type:1,
+        id:2,
     }).then(res=>{
         console.log(res);
     })

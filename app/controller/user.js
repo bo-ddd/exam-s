@@ -59,7 +59,6 @@ class UserController extends BaseController {
     async info() {
         const { ctx } = this;
         const { id } = ctx.session.user;
-        console.log()
         let sql = `select * from user_info where user_info.id = ${id}`
         let data = await ctx.service.mysql.query(sql);
         return ctx.success({ data });

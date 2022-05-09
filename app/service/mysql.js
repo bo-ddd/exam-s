@@ -13,6 +13,7 @@ class MysqlService extends Service {
   }
   async update(tablename, payload, options = {}) {
     payload = this.service.format.params(payload);
+    if(options.where && !Object.keys(options.where).length) delete options.where;
     return await this.app.mysql.update(tablename, payload, options);
   }
   async create(tablename, payload, options) {
