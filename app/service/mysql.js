@@ -58,7 +58,7 @@ class MysqlService extends Service {
     const offset = (pageNum - 1) * pageSize;
     const promises = cb({ limit, offset });
     const [count, rows] = await Promise.all(promises);
-    const pageCount = Math.ceil(count / (pageSize * pageNum));
+    const pageCount = Math.ceil(count / pageSize);
     const data = ctx.service.format.camelCase({ count, pageCount, rows });
     return ctx.success({ data });
   }
