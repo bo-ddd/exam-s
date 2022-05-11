@@ -42,6 +42,10 @@ class QuestionController extends BaseController {
     async delete() {
         this.tablename = await this.ctx.service.question.getTableName();
         const { id } = this.ctx.request.body;
+        this.ctx.validate({
+            id: { type: 'number' },
+            type:{ type: 'number' }
+        });
         return this.ctx.service.mysql.delete(this.tablename, {
             id
         })
