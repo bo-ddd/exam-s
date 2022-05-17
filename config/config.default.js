@@ -78,6 +78,16 @@ module.exports = appInfo => {
     agent: false,
   };
 
+  config.io = {
+    init:{ },
+    namespace:{
+      '/':{
+        connectionMiddeware:['connection'],
+        packetMiddleware:['packet'],
+      },
+    }
+  }
+
   return {
     ...config,
     ...userConfig,
