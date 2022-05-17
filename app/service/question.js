@@ -11,7 +11,7 @@ class QuestionService extends Service {
     async list(tableName) {
         let { ctx } = this;
         let { mysql } = ctx.service;
-        return mysql.pagination(({limit, offset})=>{
+        return await mysql.pagination(({limit, offset})=>{
             let condition = mysql.condition({
                 like: ['title'],
                 limit,
