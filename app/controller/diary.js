@@ -14,7 +14,7 @@ class DiaryController extends BaseController {
     }
 
     async list(){
-        this.ctx.request.body.id = this.session.user.id;
+        this.ctx.request.body.id = this.ctx.session.user.id;
         return await super.list();
     }
 
