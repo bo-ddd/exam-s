@@ -92,6 +92,7 @@ class MysqlService extends Service {
    * @return  { count, pageCount, rows } 总条数，总页数，数据列表；
    * **/
   async pagination(cb) {
+
     const { ctx } = this;
     const { pageSize = 10, pageNum = 1 } = ctx.request.body;
     const limit = pageSize;
