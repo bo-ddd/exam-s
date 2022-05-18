@@ -74,7 +74,7 @@ class MysqlService extends Service {
       const options = {
         where,
       };
-      //pagination == false ? '查询所有数据' : '按照分页查询数据'
+      //pagination === false ? '查询所有数据' : '按照分页查询数据'
       if (pagination !== undefined) {
         options.limit = limit;
         options.offset = offset;
@@ -103,7 +103,7 @@ class MysqlService extends Service {
     const data = ctx.service.format.camelCase({ count, pageCount, rows });
     return ctx.success({ data });
   }
-  
+
   /***
    * @description 这个是返回表格数据总数的方法
    * @return {res} 多少条数据
