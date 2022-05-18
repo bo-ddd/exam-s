@@ -6,6 +6,7 @@ class QuestionController extends BaseController {
         super(ctx);
         this.tablename = 'single_question';
     }
+    
     async list() {
         this.tablename = await this.ctx.service.question.getTableName();
         return super.list();
