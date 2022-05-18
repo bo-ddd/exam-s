@@ -11,6 +11,7 @@ class QuestionService extends Service {
     async list(tableName) {
         let { ctx } = this;
         let { mysql } = ctx.service;
+        let { title } = ctx.request.body;
         return await mysql.pagination(({limit, offset})=>{
             let condition = mysql.condition({
                 like: ['title'],
@@ -18,7 +19,9 @@ class QuestionService extends Service {
                 offset,
             });
             let sql = `select * from ${tableName} where ${condition}`
-            let count = mysql.count(tableName);
+
+            let where = title ? `title like '%${title}%'` : '';
+            let count = mysql.count(tableName, where);
             let list = mysql.query(sql);
             return [count, list]
         })

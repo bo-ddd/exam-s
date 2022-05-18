@@ -75,7 +75,7 @@ class MysqlService extends Service {
         where,
       };
       //pagination === false ? '查询所有数据' : '按照分页查询数据'
-      if (pagination !== undefined) {
+      if (pagination !== false) {
         options.limit = limit;
         options.offset = offset;
       }
@@ -107,8 +107,11 @@ class MysqlService extends Service {
    * @description 这个是返回表格数据总数的方法
    * @return {res} 多少条数据
    */
-  async count(tablename) {
-    let res = await this.app.mysql.query(`select count(*) as count from ${tablename}`);
+  async count(tablename,where = '') {
+    let sql = `select count(*) as count from ${tablename} ${where ? 'where ' + where : ''}`;
+    console.log('----------sql------------')
+    console.log(sql);
+    let res = await this.app.mysql.query(sql);
     return res[0].count;
   }
   /**
@@ -117,6 +120,7 @@ class MysqlService extends Service {
    */
   async delete(tablename, where) {
     const { ctx } = this;
+    if(!where) return ctx.fail('删除条件不能为空！')
     where = ctx.service.format.params(where);
     let res = await this.app.mysql.delete(tablename, where);
     return res.affectedRows === 1 ? ctx.success() : ctx.fail();
