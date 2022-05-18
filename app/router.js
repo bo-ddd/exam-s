@@ -4,7 +4,7 @@
  * @param {Egg.Application} app - egg application
  */
 module.exports = app => {
-  const { router, controller } = app;
+  const { router, controller,io } = app;
   // home
   router.get('/', controller.home.index);
 
@@ -13,4 +13,5 @@ module.exports = app => {
   });
 
   router.get('/captcha', controller.user.captcha);
+  io.of('/').route('server',io.controller.defalut.index);
 };
