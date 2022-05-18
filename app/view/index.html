@@ -6,64 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="../public/lib/axios.js"></script>
 </head>
 
 <body>
 
 </body>
 <script>
-
-
-    var data = {
-        id: 100,
-        answer: '',
-        level: '',
-        questionA: 'aaaaa',
-        questionB: 'abbbbbb',
-        title: '',
-        type: 1,
-    }
-
-    let questionOptionsTemp = [
-        {
-            id: 1,
-            key: "A",
-            label: "选项A",
-            value: "",
-            placeholder: '请输入选项A的值'
-        },
-        {
-            id: 2,
-            key: "B",
-            label: "选项B",
-            value: "",
-            placeholder: '请输入选项B的值'
-        },
-        {
-            id: 3,
-            key: "C",
-            label: "选项C",
-            value: "",
-            placeholder: '请输入选项C的值,非必填'
-        },
-        {
-            id: 4,
-            key: "D",
-            label: "选项D",
-            value: "",
-            placeholder: '请输入选项D的值,非必填'
-        },
-    ]
     
-    let questionOptions =  JSON.parse(JSON.stringify(questionOptionsTemp));
-    
-    // length == 4;
-    questionOptions.forEach((item,index)=>{
-        questionOptions[index].value = data['question' + item.key];
-    })
-
-    let res = questionOptions.filter(item=> item.value);
-    console.log(res);
 </script>
 
-</html>                                 
+</html>

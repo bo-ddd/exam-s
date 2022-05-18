@@ -9,7 +9,7 @@ class QuestionController extends BaseController {
     
     async list() {
         this.tablename = await this.ctx.service.question.getTableName();
-        return super.list();
+        return this.ctx.service.question.list(this.tablename);
     }
 
     async create() {

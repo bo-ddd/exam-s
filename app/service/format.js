@@ -14,14 +14,14 @@ class FormatService extends Service {
   /**
    * @description 将一个字符串转换成驼峰
    * @params [String] target
-   * **/ 
+   * **/
   transformCamelCase(target) {
     return CamelCase.transform(target);
   }
   /**
    * @description 将驼峰转换成下划线命名法
    * @param target Object
-   * **/ 
+   * **/
   params(target) {
     const res = {};
     Object.keys(target).forEach(key => {
@@ -31,15 +31,15 @@ class FormatService extends Service {
   }
   /**
    * @description 判断是否是一个json对象；
-   * **/ 
+   * **/
   isPlainObject(target) {
     return Object.prototype.toString.call(target) === '[object Object]';
   }
   /**
    * @description 把前端传过来的[pageSize,pageNum]过滤掉；
-   * **/ 
-  exclude(target,keys) {
-    const fields = keys || [ 'pageSize', 'pageNum', 'pagination' ];
+   * **/
+  exclude(target, keys) {
+    const fields = keys || ['pageSize', 'pageNum', 'pagination'];
     const res = {};
     Object.keys(target).forEach(key => {
       if (fields.includes(key)) {
