@@ -11,15 +11,18 @@ class MysqlService extends Service {
       return null;
     }
   }
+
   async update(tablename, payload, options = {}) {
     payload = this.service.format.params(payload);
     if (options.where && !Object.keys(options.where).length) delete options.where;
     return await this.app.mysql.update(tablename, payload, options);
   }
+
   async create(tablename, payload, options) {
     payload = this.service.format.params(payload);
     return await this.app.mysql.insert(tablename, payload, options);
   }
+
   async query(sql, arr = []) {
     const { app, ctx } = this;
     const data = await app.mysql.query(sql, arr);
@@ -104,13 +107,14 @@ class MysqlService extends Service {
   }
 
   /***
-   * @description 这个是返回表格数据总数的方法
+   * @description 这个是返回表数据总数的方法
+   * @params tablename  <string> 表名称
+   * @param where <string> where语句；
    * @return {res} 多少条数据
    */
   async count(tablename,where = '') {
-    let sql = `select count(*) as count from ${tablename} ${where ? 'where ' + where : ''}`;
-    console.log('----------sql------------')
-    console.log(sql);
+    where = where ? 'where ' + where : '';
+    let sql = `select count(*) as count from ${tablename} ${where}`;
     let res = await this.app.mysql.query(sql);
     return res[0].count;
   }
