@@ -1,8 +1,8 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const BaseController = require('./base.js');
 
-class DiaryController extends Controller {
+class DiaryController extends BaseController {
     constructor(ctx) {
         super(ctx);
         this.tablename = 'diary';
