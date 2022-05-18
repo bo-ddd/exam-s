@@ -10,17 +10,20 @@
 </head>
 
 <body>
-
+    
 </body>
 <script>
-
-    axios.post('/question/list',{
-        type:1,
-        title:"qfqf",
-        pagination:false
-    }).then(res=>{
-        console.log(res);
-    })
+    let vm = {
+        data:{
+            answer:'A'
+        },
+        methods: {
+            submit() {
+                let res = questionOptions.find(item => item.key == this.answer);
+                this.answer =  !res ? '' : this.answer;
+            }
+        }
+    }
 </script>
 
 </html>
