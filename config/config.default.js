@@ -90,10 +90,10 @@ module.exports = appInfo => {
 
   config.redis = {
     client: {
-      port: 26451, // Redis port 
-      host: 'bj-cynosdbmysql-grp-790w57fi.sql.tencentcdb.com', // Redis host 
-      password: 'genglei-1',
-      db: "exam"
+      port: 6379, // Redis port 
+      host: 'r-2zenths55xeba265ojpd.redis.rds.aliyuncs.com', // Redis host 
+      password:'Xiaomuyu-1',
+      db: 0,
     },
   }
 
