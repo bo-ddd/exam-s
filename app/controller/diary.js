@@ -9,7 +9,7 @@ class DiaryController extends BaseController {
     }
 
     async create(){
-        this.ctx.request.body.id = this.session.user.id;
+        this.ctx.request.body.userId = this.ctx.session.user.id;
         return await super.create();
     }
 

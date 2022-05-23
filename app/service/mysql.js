@@ -110,7 +110,7 @@ class MysqlService extends Service {
    * @description 这个是返回表数据总数的方法
    * @params tablename  <string> 表名称
    * @param where <string> where语句；
-   * @return {res} 多少条数据
+   * @return {res} 数据总数
    */
   async count(tablename,where = '') {
     where = where ? 'where ' + where : '';

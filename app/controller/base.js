@@ -15,6 +15,7 @@ class BaseController extends Controller {
   }
   async create() {
     const { ctx } = this;
+    console.log(ctx.request.body);
     const data = await ctx.service.mysql.create(this.tablename, ctx.request.body);
     return data.affectedRows === 1 ? ctx.success() : ctx.fail();
   }
