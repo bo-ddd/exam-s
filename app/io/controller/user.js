@@ -8,7 +8,7 @@ class UserController extends Controller {
             ...message,
             date: new Date()
         }
-        app.io.of('/').emit('res', msg);
+        app.io.of('/').emit('receiveMsg', msg);
     }
     async addUser() {
         const { ctx, app } = this;
