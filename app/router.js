@@ -17,5 +17,4 @@ module.exports = app => {
   io.of('/').route('removeUser',io.controller.user.removeUser);
 
   router.get('/captcha', controller.user.captcha);
-  io.of('/').route('server',io.controller.defalut.index);
 };
