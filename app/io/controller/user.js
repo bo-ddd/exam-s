@@ -12,15 +12,18 @@ class UserController extends Controller {
     }
     async addUser() {
         const { ctx, app } = this;
-        console.log('----------------------addUser-----------------')
-        console.log(ctx.state);
-        ctx.state.userCount = ctx.state.userCount ? ctx.state.userCount + 1 : 1;
-        app.io.of('/').emit('userCount', ctx.state.userCount);
+        let count = await app.redis.get('count');
+        count = Number(count) + 1;
+        await app.redis.set('count', count);
+
+        app.io.of('/').emit('userCount', count);
     }
     async removeUser() {
         const { ctx, app } = this;
-        ctx.state.userCount = ctx.state.userCount ? ctx.state.userCount - 1 : 1;
-        app.io.of('/').emit('userCount', ctx.state.userCount);
+        let count = await app.redis.get('count');
+        count = Number(count) - 1;
+        await app.redis.set('count', count);
+        app.io.of('/').emit('userCount', count);
     }
 }
 
