@@ -12,7 +12,7 @@ module.exports = app => {
     router.post(`/${filename}/:route`,controller[filename].index)
   });
   
-  io.of('/').route('server',io.controller.user.index);
+  io.of('/').route('sendMsg',io.controller.user.index);
   io.of('/').route('addUser',io.controller.user.addUser);
   io.of('/').route('removeUser',io.controller.user.removeUser);
 
