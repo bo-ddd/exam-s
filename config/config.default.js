@@ -16,20 +16,20 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1631003906083_2658';
 
   // add your middleware config here
-  config.middleware = [  'logger', 'auth', 'errorHandler'  ];
+  config.middleware = ['logger', 'auth', 'errorHandler'];
 
   config.auth = {
     secret: 'xiaohongao',
-    authUrls: [ '/user/info', '/tasklog/mylist', 'task/list' ],
+    authUrls: ['/user/info', '/tasklog/mylist', 'task/list'],
   };
 
   config.origin = {
-    whiteList:[ 'http://8.131.89.181:80', 'http://8.131.89.181','*']
+    whiteList: ['http://8.131.89.181:80', 'http://8.131.89.181', '*']
   }
 
   config.multipart = {
     mode: 'file',
-    whitelist: [ '.png', '.jpg', '.jpeg' ], // 覆盖整个白名单，只允许上传 '.png' 格式
+    whitelist: ['.png', '.jpg', '.jpeg'], // 覆盖整个白名单，只允许上传 '.png' 格式
     fileSize: '1024kb',
   };
 
@@ -41,9 +41,9 @@ module.exports = appInfo => {
   };
 
   config.cors = {
-    origin:"http://8.131.89.181",
-    allowMethods:"GET, HEAD, PUT, POST, DELETE, PATCH",
-    credentials:true
+    origin: "http://8.131.89.181",
+    allowMethods: "GET, HEAD, PUT, POST, DELETE, PATCH",
+    credentials: true
   };
 
   // add your user config here
@@ -54,7 +54,7 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
-    domainWhiteList:['*']
+    domainWhiteList: ['*']
   };
 
   // config/config.${env}.js
@@ -79,13 +79,22 @@ module.exports = appInfo => {
   };
 
   config.io = {
-    init:{ },
-    namespace:{
-      '/':{
-        connectionMiddeware:['connection'],
-        packetMiddleware:['packet'],
+    init: {},
+    namespace: {
+      '/': {
+        connectionMiddeware: ['connection'],
+        packetMiddleware: ['packet'],
       },
     }
+  };
+
+  config.redis = {
+    client: {
+      port: 26451, // Redis port 
+      host: 'bj-cynosdbmysql-grp-790w57fi.sql.tencentcdb.com', // Redis host 
+      password: 'genglei-1',
+      db: "exam"
+    },
   }
 
   return {
