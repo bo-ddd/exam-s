@@ -15,6 +15,7 @@ class UserController extends Controller {
         let count = await app.redis.get('count');
         count = Number(count) + 1;
         await app.redis.set('count', count);
+        
 
         app.io.of('/').emit('userCount', count);
     }

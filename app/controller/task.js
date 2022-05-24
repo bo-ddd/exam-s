@@ -9,12 +9,17 @@ class TaskController extends BaseController {
     }
 
     async create(){
-        return await super.create();
+       const { ctx } = this;
+       let payload = ctx.request.body;
+       payload.user_id = ctx.session.user.id;
+       const data = await ctx.service.mysql.create(this.tablename, payload);
+       return data.affectedRows === 1 ? ctx.success({ data:[{taskId:data.insertId}]}) : ctx.fail();
     }
 
-    async list(){
-        this.ctx.request.body.id = this.ctx.session.user.id;
-        return await super.list();
+    async release(){
+        let { ctx }  = this;
+        const data = await ctx.service.mysql.create("task_record",ctx.request.body);
+       return data.affectedRows === 1 ? ctx.success() : ctx.fail();
     }
 
 }

@@ -103,6 +103,14 @@ class UserController extends BaseController {
         });
         return await ctx.service.user.register();
     }
+
+
+    async list() {
+        const { ctx } = this;
+        this.tablename = "user_info"
+        let data = await super.list();
+        return ctx.success({ data });
+    }
 }
 
 module.exports = UserController;
