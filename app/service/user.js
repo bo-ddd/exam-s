@@ -26,12 +26,12 @@ class UserService extends Service {
   }
   async register() {
     const { ctx, app } = this;
-    const { username, password, email, phone } = ctx.request.body;
+    const { username, password, email, phone, name } = ctx.request.body;
 
     const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
       let userInfo = await conn.insert('user_info', { email, phone });
-      await conn.insert('user', { username, password, user_id: userInfo.insertId });
+      await conn.insert('user', { username, password, user_id: userInfo.insertId, name });
       await conn.commit(); // 提交事务
       return ctx.success();
     } catch (err) {
