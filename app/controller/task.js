@@ -20,8 +20,8 @@ class TaskController extends BaseController {
         userId.forEach(userId => {
             params.push(this.ctx.service.mysql.create("task_record", { userId, taskId }));
         });
-        let res = await Promise.all(params);
-        if (res)  return this.ctx.success({
+        await Promise.all(params);
+        return this.ctx.success({
             data: [],
             status: 1,
             msg: 'success'
