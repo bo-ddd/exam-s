@@ -30,8 +30,8 @@ class UserService extends Service {
 
     const conn = await app.mysql.beginTransaction(); // 初始化事务
     try {
-      let userInfo = await conn.insert('user_info', { email, phone });
-      await conn.insert('user', { username, password, user_id: userInfo.insertId, name });
+      let userInfo = await conn.insert('user_info', { email, phone, name });
+      await conn.insert('user', { username, password, user_id: userInfo.insertId });
       await conn.commit(); // 提交事务
       return ctx.success();
     } catch (err) {
