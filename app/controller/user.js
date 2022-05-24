@@ -98,6 +98,7 @@ class UserController extends BaseController {
             password: { type: 'password' },
             phone: { type: 'phone' },
             email: { type: 'email' },
+            name:{ type: 'string', max:4},
             captcha: { type: 'captcha', captcha: ctx.session.captcha }
         });
         return await ctx.service.user.register();
