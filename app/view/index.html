@@ -13,10 +13,7 @@
 
 </body>
 <script>
-    axios.post('/task/release',{
-        userId:[1],
-        taskId:1
-    }).then(res=>{
+    axios.post('/task/list').then(res=>{
         console.log(res);
     })
 </script>
