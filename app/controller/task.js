@@ -11,13 +11,7 @@ class TaskController extends BaseController {
     async list() {
         let mysql = this.ctx.service.mysql;
         let user = this.ctx.session.user;
-        user = {
-            id:829
-        }
-        console.log(user); 
-        // 用户已经领取该任务返回1 否则返回0；
-        // task_record 中  user_id   exists
-        // 
+
         return await mysql.pagination(({ limit, offset }) => {
             let sql = `select task.id as id, task.name as task_name,task.desc as 'desc', task.user_id as user_id, 
             task.duration as duration, task.created_at as created_at, 
