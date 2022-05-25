@@ -18,12 +18,9 @@ class TaskController extends BaseController {
         let { userId, taskId } = this.ctx.request.body;
         let promises = [];
         userId.forEach(userId => {
-            let sql = `insert into ${this.tablename} 
-            set 
-                user_id = ${userId} task_id = ${taskId} 
-            where 
-                (select count(*) from ${this.tablename} where user_id = ${userId} and task_id = ${taskId} = 0)
-            `;
+            let sql = `insert into task_record(user_id, task_id)
+            select ${userId}, ${taskId} from dual
+            where not exists (select * from task_record where user_id = ${userId} and task_id = ${taskId})`;
             let promise = this.ctx.service.mysql.query(sql);
             promises.push(promise);
         });
