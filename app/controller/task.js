@@ -11,7 +11,9 @@ class TaskController extends BaseController {
     async list() {
         let mysql = this.ctx.service.mysql;
         let user = this.ctx.session.user;
-
+        user = {
+            id:1,
+        }
         return await mysql.pagination(({ limit, offset }) => {
             let sql = `select task.id as id, task.name as task_name,task.desc as 'desc', task.user_id as user_id, 
             task.duration as duration, task.created_at as created_at, 
