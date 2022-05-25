@@ -11,9 +11,6 @@ class TaskController extends BaseController {
     async list() {
         let mysql = this.ctx.service.mysql;
         let user = this.ctx.session.user;
-        user = {
-            id:1,
-        }
         return await mysql.pagination(({ limit, offset }) => {
             let sql = `select task.id as id, task.name as task_name,task.desc as 'desc', task.user_id as user_id, 
             task.duration as duration, task.created_at as created_at, 
@@ -21,7 +18,7 @@ class TaskController extends BaseController {
             (select if(
                 (select count(*) from task_record where exists (
                     select task_id from task_record where user_id = ${user.id} and task_id =  task.id
-                ))    
+                ))
             , 1, 0)) as isReceived,
             task.updated_at as updated_at, task.level as level, user.name as user_name from task
             inner join user_info as user
