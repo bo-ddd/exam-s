@@ -56,7 +56,7 @@ class TaskController extends BaseController {
     async detail() {
         let { taskId } = this.ctx.request.body;
         let { mysql } = this.ctx.service;
-        
+
         let sql = `
         select task.id as taskId,
         task.name as taskName,
@@ -74,21 +74,21 @@ class TaskController extends BaseController {
         where task.id = ${taskId}`
 
         let receivedSql = `select 
-        t.user_id  as userId, t.completed_at as completedAt,
-        t.task_id as taskId,
+        t.user_id  as userId, 
+        t.completed_at as completedAt,
         user.name as userName
         from task_record as t 
         inner join user_info as user
         on t.user_id = user.id
         where t.task_id = ${taskId}`;
 
-        let [data, receivedData ] = await Promise.all([
+        let [data, receivedData] = await Promise.all([
             mysql.query(sql),
             mysql.query(receivedSql)
         ]);
 
         data = data[0];
-        if(!data) return this.ctx.fail({ msg:'该任务不存在！' });
+        if (!data) return this.ctx.fail({ msg: '该任务不存在！' });
         data.receivedData = receivedData;
 
         return this.ctx.success({ data });
