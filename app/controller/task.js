@@ -52,6 +52,37 @@ class TaskController extends BaseController {
         await Promise.all(promises);
         return this.ctx.success()
     }
+
+    async detail() {
+        let { taskId } = this.ctx.request.body;
+        let { mysql } = this.ctx.service;
+        
+        let sql = `
+        select *, (select case level when 1 then '紧急' else '普通' end) as levelName
+        from task where id = ${taskId}`
+
+        let receivedSql = `select 
+        t.id as id, t.user_id  as userId, t.completed_at as completedAt,
+        t.task_id as taskId,
+        user.name as userName
+        from task_record as t 
+        inner join user_info as user
+        on t.user_id = user.id
+        where t.task_id = ${taskId}`;
+
+        let [data, receivedData ] = await Promise.all([
+            mysql.query(sql),
+            mysql.query(receivedSql)
+        ]);
+        console.log('----------------------')
+        console.log(data);
+        data = data[0];
+        data.receivedData = receivedData;
+        console.log(receivedData)
+        // data.receivedData = receivedData;
+
+        return this.ctx.success({ data });
+    }
 }
 
 module.exports = TaskController;

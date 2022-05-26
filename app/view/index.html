@@ -10,10 +10,12 @@
 </head>
 
 <body>
-
+    
 </body>
 <script>
-    axios.post('/task/list').then(res=>{
+    axios.post('/task/detail',{
+        taskId:461
+    }).then(res=>{
         console.log(res);
     })
 </script>
