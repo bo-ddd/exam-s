@@ -58,11 +58,23 @@ class TaskController extends BaseController {
         let { mysql } = this.ctx.service;
         
         let sql = `
-        select *, (select case level when 1 then '紧急' else '普通' end) as levelName
-        from task where id = ${taskId}`
+        select task.id as taskId,
+        task.name as taskName,
+        task.desc as 'desc',
+        task.user_id as userId,
+        user.name as userName,
+        task.duration as duration,
+        task.level as level, 
+        (select case level when 1 then '紧急' else '普通' end) as levelName,
+        task.created_at as createdAt,
+        task.updated_at as updatedAt
+        from task 
+        inner join user_info as user
+        on task.user_id = user.id
+        where task.id = ${taskId}`
 
         let receivedSql = `select 
-        t.id as id, t.user_id  as userId, t.completed_at as completedAt,
+        t.user_id  as userId, t.completed_at as completedAt,
         t.task_id as taskId,
         user.name as userName
         from task_record as t 
@@ -74,12 +86,10 @@ class TaskController extends BaseController {
             mysql.query(sql),
             mysql.query(receivedSql)
         ]);
-        console.log('----------------------')
-        console.log(data);
+
         data = data[0];
+        if(!data) return this.ctx.fail({ msg:'该任务不存在！' });
         data.receivedData = receivedData;
-        console.log(receivedData)
-        // data.receivedData = receivedData;
 
         return this.ctx.success({ data });
     }
