@@ -7,6 +7,12 @@ class RoleController extends BaseController {
         super(ctx);
         this.tablename = 'role';
     }     
+    create(){
+        this.ctx.validate({
+            roleName:{ type:'string' }
+        })
+        return super.create();
+    }
 }
 
 module.exports = RoleController;
