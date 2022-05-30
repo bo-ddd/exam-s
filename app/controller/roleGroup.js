@@ -7,11 +7,11 @@ class RoleGroupController extends BaseController {
         super(ctx);
         this.tablename = 'role_group';
     }
-    create(){
+    async create(){
         this.ctx.validate({
             groupName:{ type:'string' }
         })
-        return super.create();
+        return await super.create();
     }  
 }
 
