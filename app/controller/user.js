@@ -58,10 +58,19 @@ class UserController extends BaseController {
     }
     async info() {
         const { ctx } = this;
-        const { id } = ctx.session.user;
-        let sql = `select * from user_info where user_info.id = ${id}`
-        let data = await ctx.service.mysql.query(sql);
-        return ctx.success({ data });
+        // const { id } = ctx.session.user;
+        // console.log('------这个是userInfo的接口----------');
+        // console.log('查看ctx.session');
+        // console.log(ctx.session);
+        // console.log('查看ctx.session.user的内容');
+        // console.log(ctx.session.user);
+        // console.log('------这个是userInfo的结束----------')
+        // let sql = `select * from user_info where user_info.id = ${id}`
+        // let data = await ctx.service.mysql.query(sql);
+        // console.log('-----------这个是查询数据库返回的内容-----------');
+        // console.log(data);
+        // console.log('-----------这个是查询数据库返回的内容结束-----------');
+        return ctx.success({ data:ctx.session.user });
     }
     /**
      * @description 更新用户信息
