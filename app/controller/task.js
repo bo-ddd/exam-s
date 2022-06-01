@@ -11,6 +11,8 @@ class TaskController extends BaseController {
     async list() {
         let mysql = this.ctx.service.mysql;
         let user = this.ctx.session.user;
+        let { taskName } =  this.ctx.request.body;
+        // or task.created_at  between '${createAt[0]}' and '${createAt[1]}'
         return await mysql.pagination(({ limit, offset }) => {
             let sql = `select task.id as id, task.name as task_name,task.desc as 'desc', task.user_id as user_id, 
             task.duration as duration, task.created_at as created_at, 
@@ -23,10 +25,12 @@ class TaskController extends BaseController {
             task.updated_at as updated_at, task.level as level, user.name as user_name from task
             inner join user_info as user
             on user.id = task.user_id
+            where task.name like '%${taskName || ""}%' 
             order by task.level  desc
             limit ${limit}
             offset ${offset}
             `
+            console.log(sql);
             let count = mysql.count(this.tablename);
             let list = mysql.query(sql);
             return [count, list]
@@ -50,13 +54,12 @@ class TaskController extends BaseController {
             promises.push(promise);
         });
         await Promise.all(promises);
-        return this.ctx.success()
+        return this.ctx.success();
     }
 
     async detail() {
         let { taskId } = this.ctx.request.body;
         let { mysql } = this.ctx.service;
-
         let sql = `
         select task.id as taskId,
         task.name as taskName,
