@@ -44,9 +44,9 @@ class TaskController extends BaseController {
     }
 
     async release() {
-        let { userId, taskId } = this.ctx.request.body;
+        let { userIds, taskId } = this.ctx.request.body;
         let promises = [];
-        userId.forEach(userId => {
+        userIds.forEach(userId => {
             let sql = `insert into task_record(user_id, task_id)
             select ${userId}, ${taskId} from dual
             where not exists (select * from task_record where user_id = ${userId} and task_id = ${taskId})`;

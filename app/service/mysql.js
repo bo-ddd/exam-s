@@ -96,12 +96,12 @@ class MysqlService extends Service {
    * **/
   async pagination(cb) {
     const { ctx } = this;
-    const { pageSize = 10, pageNum = 1 } = ctx.request.body;
+    const { pageSize = 10, pageNum = 1, pagination } = ctx.request.body;
     const limit = pageSize;
     const offset = (pageNum - 1) * pageSize;
     const promises = cb({ limit, offset });
     const [count, rows] = await Promise.all(promises);
-    const pageCount = Math.ceil(count / pageSize);
+    const pageCount =  pagination === false ? 1 : Math.ceil(count / pageSize);
     const data = ctx.service.format.camelCase({ count, pageCount, rows });
     return ctx.success({ data });
   }
