@@ -20,7 +20,7 @@ module.exports = appInfo => {
 
   config.auth = {
     secret: 'xiaohongao',
-    authUrls: ['/user/info', 'task/list'],
+    authUrls: ['/user/info', '/task/list'],
   };
 
   config.origin = {
