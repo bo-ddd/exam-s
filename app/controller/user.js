@@ -51,6 +51,7 @@ class UserController extends BaseController {
             const user = ctx.session.user;
             const userInfo = ctx.service.format.exclude(user, ['iat', 'exp']);
             let data = await ctx.service.user.getToken(userInfo);
+            console.log(data);
             return ctx.success({ data })
         } catch (e) {
             return ctx.fail({ msg: '获取token失败' })
