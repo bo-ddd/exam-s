@@ -127,6 +127,7 @@ class MysqlService extends Service {
     if(!where) return ctx.fail('删除条件不能为空！')
     where = ctx.service.format.params(where);
     let res = await this.app.mysql.delete(tablename, where);
+    console.log(res);
     return res.affectedRows === 1 ? ctx.success() : ctx.fail();
   }
 }
