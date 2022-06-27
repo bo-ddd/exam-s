@@ -2,18 +2,32 @@
 
 const BaseController = require('./base.js');
 
-class RolepermissionController extends BaseController {
+class RolePermissionController extends BaseController {
     constructor(ctx) {
         super(ctx);
         this.tablename = 'role_permission';
     }
 
+    async create() {
+        const { ctx } = this;
+        let { title } = ctx.request.body;
+        let promises = [];
+        title.forEach(title => {
+           let res =  ctx.service.mysql.create(this.tablename, {title,rId:ctx.request.body.rId});
+           promises.push(res);
+        });
+       let res =  await Promise.all(promises);
+       return res.length === title.length ? ctx.success() : ctx.fail();
+      }
+
     async list() {
-        let sql = `select id from user where user_id = ${this.ctx.session.user.id}`;
-        let data = await this.ctx.service.mysql.query(sql);
+        let {ctx} = this;
+        let sql = `select id from user where user_id = ${ctx.session.user.id}`;
+        let data = await ctx.service.mysql.query(sql);
         let sqlrole = `select id from role where user_id = ${data[0].id}`;
-        let id = await this.ctx.service.mysql.query(sqlrole);
-        let mysql = this.ctx.service.mysql;
+        let id = await ctx.service.mysql.query(sqlrole);
+        if(!id) ctx.fail({msg:"该用户下面还没有创建角色"});
+        let mysql = ctx.service.mysql;
         return await mysql.pagination(({ limit, offset }) => {
             let sql = `select  role.id as role_id,role_name,title
             from role 
@@ -30,4 +44,4 @@ class RolepermissionController extends BaseController {
     }
 }
 
-module.exports = RolepermissionController;
+module.exports = RolePermissionController;
