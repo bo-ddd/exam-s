@@ -10,7 +10,7 @@ class UploadController extends BaseController {
 
     if (!files.length) return ctx.fail({ message: '文件内容不能为空' });
     if (type === undefined) return ctx.fail({ message: 'type不能为空' });
-    const types = ['','goods'];
+    const types = ['','goods','avatar'];
     const imgUrl = types[type];
     const file = files[0];
     try {
