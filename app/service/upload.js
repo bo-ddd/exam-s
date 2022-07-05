@@ -6,7 +6,7 @@ const Service = require('egg').Service;
 class UploadService extends Service {
 
     async getOss(){
-        let res = await this.ctx.service.mysql.findOne('___o__s_s____gl',{id:1});
+        let res = await this.ctx.service.mysql.findOne('__oss__',{id:1});
         return {
             region:res.region,
             accessKeyId:res.accessKeyId,
