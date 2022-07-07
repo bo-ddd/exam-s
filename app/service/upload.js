@@ -7,6 +7,9 @@ class UploadService extends Service {
 
     async getOss(){
         let res = await this.ctx.service.mysql.findOne('__oss__',{id:1});
+        console.log('--------------我是oss的值开始-----------');
+        console.log(res);
+        console.log('---------------我是oss的值结束---------------');
         return {
             region:res.region,
             accessKeyId:res.accessKeyId,

@@ -7,11 +7,16 @@ class UploadController extends BaseController {
     const { ctx } = this;
     const files = ctx.request.files;
     const { type } = ctx.request.body;
-
+    console.log('我是文件');
+    console.log(files);
+    console.log('------我是type类型的开始----');
+    console.log(type);
+    console.log('------我是type类型的结束----');
     if (!files.length) return ctx.fail({ message: '文件内容不能为空' });
     if (type === undefined) return ctx.fail({ message: 'type不能为空' });
     const types = ['','goods','avatar'];
     const imgUrl = types[type];
+    console.log(imgUrl);
     const file = files[0];
     try {
       // 填写OSS文件完整路径和本地文件的完整路径。OSS文件完整路径中不能包含Bucket名称。
