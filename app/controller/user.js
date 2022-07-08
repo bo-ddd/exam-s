@@ -62,8 +62,6 @@ class UserController extends BaseController {
         const { id } = ctx.session.user;
         let sql = `select * from user_info where user_info.id = ${id}`
         let data = await ctx.service.mysql.query(sql);
-        let identify = await ctx.service.mysql.query(`select role.id,role_name,role.created_at from role where role.user_id = ${data[0].id}`);
-        data[0].identify = identify;
         return ctx.success({ data:data[0] });
     }
     /**
