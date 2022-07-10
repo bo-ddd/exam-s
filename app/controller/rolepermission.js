@@ -13,7 +13,7 @@ class RolePermissionController extends BaseController {
         let { title } = ctx.request.body;
         let promises = [];
         title.forEach(title => {
-           let res =  ctx.service.mysql.create(this.tablename, {title,rId:ctx.request.body.rId});
+           let res =  ctx.service.mysql.create(this.tablename, {title});
            promises.push(res);
         });
        let res =  await Promise.all(promises);
