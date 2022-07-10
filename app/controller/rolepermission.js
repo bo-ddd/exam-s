@@ -5,20 +5,20 @@ const BaseController = require('./base.js');
 class RolePermissionController extends BaseController {
     constructor(ctx) {
         super(ctx);
-        this.tablename = 'role_permission';
+        this.tablename = 'jurisdiction';
     }
 
     async create() {
         const { ctx } = this;
-        let { title } = ctx.request.body;
+        let { permissionId, roleId } = ctx.request.body;
         let promises = [];
-        title.forEach(title => {
-           let res =  ctx.service.mysql.create(this.tablename, {title,rId:ctx.request.body.rId});
-           promises.push(res);
+        permissionId.forEach(permissionId => {
+            let res = ctx.service.mysql.create(this.tablename, { permissionId, roleId });
+            promises.push(res);
         });
-       let res =  await Promise.all(promises);
-       return res.length === title.length ? ctx.success() : ctx.fail();
-      }
+        let res = await Promise.all(promises);
+        return res.length === title.length ? ctx.success() : ctx.fail();
+    }
 
     async list() {
         let {ctx} = this;
