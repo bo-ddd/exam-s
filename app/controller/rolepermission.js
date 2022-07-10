@@ -41,7 +41,8 @@ class RolePermissionController extends BaseController {
         //     let list = mysql.query(sql);
         //     return [count, list]
         // })
-        return ctx.service.mysql.list(this.tablename,{pagination:false});
+        console.log(ctx.request.body);
+        return ctx.service.mysql.list(this.tablename,ctx.request.body);
     }
 }
 
