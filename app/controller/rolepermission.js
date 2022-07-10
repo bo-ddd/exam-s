@@ -22,7 +22,6 @@ class RolePermissionController extends BaseController {
 
     async list() {
         let { ctx } = this;
-        let { roleId } = ctx.request.body;
         let mysql = ctx.service.mysql;
         return await mysql.pagination(({ limit, offset }) => {
             let sql = `    
@@ -31,7 +30,6 @@ class RolePermissionController extends BaseController {
             on jurisdiction.permission_id = role_permission.id
             inner join role
             on jurisdiction.role_id = role.id
-            where role.id = ${roleId}
             limit ${limit}
             offset ${offset}
             `
